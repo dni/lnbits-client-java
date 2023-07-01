@@ -1,0 +1,2059 @@
+openapi: 3.0.2
+info:
+  description: "API for LNbits, the free and open source bitcoin wallet and accounts\
+    \ system with plugins."
+  license:
+    name: MIT License
+    url: https://raw.githubusercontent.com/lnbits/lnbits/main/LICENSE
+  title: lnbits
+  version: 0.10.9
+servers:
+- url: /
+paths:
+  /admin/api/v1/audit:
+    get:
+      description: show the current balance of the node and the LNbits database
+      operationId: Audit_admin_api_v1_audit_get
+      parameters:
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Audit
+      tags:
+      - Core
+      x-accepts: application/json
+  /admin/api/v1/settings/:
+    delete:
+      operationId: api_delete_settings_admin_api_v1_settings__delete
+      parameters:
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Delete Settings
+      tags:
+      - Core
+      x-accepts: application/json
+    get:
+      operationId: api_get_settings_admin_api_v1_settings__get
+      parameters:
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Get Settings
+      tags:
+      - Core
+      x-accepts: application/json
+    put:
+      operationId: api_update_settings_admin_api_v1_settings__put
+      parameters:
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditableSettings'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Update Settings
+      tags:
+      - Core
+      x-content-type: application/json
+      x-accepts: application/json
+  /admin/api/v1/restart/:
+    get:
+      operationId: api_restart_server_admin_api_v1_restart__get
+      parameters:
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Restart Server
+      tags:
+      - Core
+      x-accepts: application/json
+  /admin/api/v1/topup/:
+    put:
+      operationId: Topup_admin_api_v1_topup__put
+      parameters:
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTopup'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Topup
+      tags:
+      - Core
+      x-content-type: application/json
+      x-accepts: application/json
+  /admin/api/v1/backup/:
+    get:
+      operationId: api_download_backup_admin_api_v1_backup__get
+      parameters:
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      responses:
+        "200":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Download Backup
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/health:
+    get:
+      operationId: health_api_v1_health_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Health
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/wallet:
+    get:
+      operationId: api_wallet_api_v1_wallet_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Api Wallet
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/wallet/{new_name}:
+    put:
+      operationId: api_update_wallet_api_v1_wallet__new_name__put
+      parameters:
+      - explode: false
+        in: path
+        name: new_name
+        required: true
+        schema:
+          title: New Name
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Api Update Wallet
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/payments:
+    get:
+      operationId: Payment_List_api_v1_payments_get
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          title: Limit
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          title: Offset
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: sortby
+        required: false
+        schema:
+          title: Sortby
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: direction
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          title: Direction
+          type: string
+        style: form
+      - description: Text based search
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          description: Text based search
+          title: Search
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: checking_id
+        required: false
+        schema:
+          title: Checking Id
+          type: string
+        style: form
+      - description: Supports Filtering. Supports Search
+        explode: true
+        in: query
+        name: amount
+        required: false
+        schema:
+          title: Amount
+          type: integer
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: fee
+        required: false
+        schema:
+          title: Fee
+          type: integer
+        style: form
+      - description: Supports Filtering. Supports Search
+        explode: true
+        in: query
+        name: memo
+        required: false
+        schema:
+          title: Memo
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: time
+        required: false
+        schema:
+          format: date-time
+          title: Time
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: bolt11
+        required: false
+        schema:
+          title: Bolt11
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: preimage
+        required: false
+        schema:
+          title: Preimage
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: payment_hash
+        required: false
+        schema:
+          title: Payment Hash
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: expiry
+        required: false
+        schema:
+          format: date-time
+          title: Expiry
+          type: string
+        style: form
+      - description: "Supports Filtering. Nested attributes can be filtered too, e.g.\
+          \ `extra.[additional].[attributes]`"
+        explode: true
+        in: query
+        name: extra
+        required: false
+        schema:
+          default: {}
+          title: Extra
+          type: object
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: wallet_id
+        required: false
+        schema:
+          title: Wallet Id
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: webhook
+        required: false
+        schema:
+          title: Webhook
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: webhook_status
+        required: false
+        schema:
+          title: Webhook Status
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Payment'
+                title: Response Payment List Api V1 Payments Get
+                type: array
+          description: list of payments
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: get list of payments
+      tags:
+      - Core
+      x-accepts: application/json
+    post:
+      operationId: api_payments_create_api_v1_payments_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInvoiceData'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Api Payments Create
+      tags:
+      - Core
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/v1/payments/paginated:
+    get:
+      operationId: Payment_List_api_v1_payments_paginated_get
+      parameters:
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          title: Limit
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          title: Offset
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: sortby
+        required: false
+        schema:
+          title: Sortby
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: direction
+        required: false
+        schema:
+          enum:
+          - asc
+          - desc
+          title: Direction
+          type: string
+        style: form
+      - description: Text based search
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          description: Text based search
+          title: Search
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: checking_id
+        required: false
+        schema:
+          title: Checking Id
+          type: string
+        style: form
+      - description: Supports Filtering. Supports Search
+        explode: true
+        in: query
+        name: amount
+        required: false
+        schema:
+          title: Amount
+          type: integer
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: fee
+        required: false
+        schema:
+          title: Fee
+          type: integer
+        style: form
+      - description: Supports Filtering. Supports Search
+        explode: true
+        in: query
+        name: memo
+        required: false
+        schema:
+          title: Memo
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: time
+        required: false
+        schema:
+          format: date-time
+          title: Time
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: bolt11
+        required: false
+        schema:
+          title: Bolt11
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: preimage
+        required: false
+        schema:
+          title: Preimage
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: payment_hash
+        required: false
+        schema:
+          title: Payment Hash
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: expiry
+        required: false
+        schema:
+          format: date-time
+          title: Expiry
+          type: string
+        style: form
+      - description: "Supports Filtering. Nested attributes can be filtered too, e.g.\
+          \ `extra.[additional].[attributes]`"
+        explode: true
+        in: query
+        name: extra
+        required: false
+        schema:
+          default: {}
+          title: Extra
+          type: object
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: wallet_id
+        required: false
+        schema:
+          title: Wallet Id
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: webhook
+        required: false
+        schema:
+          title: Webhook
+          type: string
+        style: form
+      - description: Supports Filtering
+        explode: true
+        in: query
+        name: webhook_status
+        required: false
+        schema:
+          title: Webhook Status
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+          description: list of payments
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: get paginated list of payments
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/payments/lnurl:
+    post:
+      operationId: api_payments_pay_lnurl_api_v1_payments_lnurl_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLNURLData'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Api Payments Pay Lnurl
+      tags:
+      - Core
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/v1/payments/sse:
+    get:
+      operationId: api_payments_sse_api_v1_payments_sse_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Api Payments Sse
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/payments/{payment_hash}:
+    get:
+      operationId: api_payment_api_v1_payments__payment_hash__get
+      parameters:
+      - explode: false
+        in: path
+        name: payment_hash
+        required: true
+        schema:
+          title: Payment Hash
+        style: simple
+      - explode: false
+        in: header
+        name: X-Api-Key
+        required: false
+        schema:
+          title: X-Api-Key
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Payment
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/lnurlscan/{code}:
+    get:
+      operationId: api_lnurlscan_api_v1_lnurlscan__code__get
+      parameters:
+      - explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          title: Code
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Api Lnurlscan
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/payments/decode:
+    post:
+      operationId: api_payments_decode_api_v1_payments_decode_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecodePayment'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Payments Decode
+      tags:
+      - Core
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/v1/lnurlauth:
+    post:
+      operationId: api_perform_lnurlauth_api_v1_lnurlauth_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLnurlAuth'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Api Perform Lnurlauth
+      tags:
+      - Core
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/v1/currencies:
+    get:
+      operationId: api_list_currencies_available_api_v1_currencies_get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Api List Currencies Available
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/conversion:
+    post:
+      operationId: api_fiat_as_sats_api_v1_conversion_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversionData'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Fiat As Sats
+      tags:
+      - Core
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/v1/qrcode/{data}:
+    get:
+      operationId: img_api_v1_qrcode__data__get
+      parameters:
+      - explode: false
+        in: path
+        name: data
+        required: true
+        schema:
+          title: Data
+        style: simple
+      responses:
+        "200":
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Img
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/ws/{item_id}:
+    post:
+      operationId: websocket_update_post_api_v1_ws__item_id__post
+      parameters:
+      - explode: false
+        in: path
+        name: item_id
+        required: true
+        schema:
+          title: Item Id
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: data
+        required: true
+        schema:
+          title: Data
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Websocket Update Post
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/ws/{item_id}/{data}:
+    get:
+      operationId: websocket_update_get_api_v1_ws__item_id___data__get
+      parameters:
+      - explode: false
+        in: path
+        name: item_id
+        required: true
+        schema:
+          title: Item Id
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: data
+        required: true
+        schema:
+          title: Data
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Websocket Update Get
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/extension:
+    post:
+      operationId: api_install_extension_api_v1_extension_post
+      parameters:
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExtension'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Install Extension
+      tags:
+      - Core
+      x-content-type: application/json
+      x-accepts: application/json
+  /api/v1/extension/{ext_id}:
+    delete:
+      operationId: api_uninstall_extension_api_v1_extension__ext_id__delete
+      parameters:
+      - explode: false
+        in: path
+        name: ext_id
+        required: true
+        schema:
+          title: Ext Id
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Uninstall Extension
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/extension/{ext_id}/releases:
+    get:
+      operationId: get_extension_releases_api_v1_extension__ext_id__releases_get
+      parameters:
+      - explode: false
+        in: path
+        name: ext_id
+        required: true
+        schema:
+          title: Ext Id
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Extension Releases
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/extension/release/{org}/{repo}/{tag_name}:
+    get:
+      operationId: get_extension_release_api_v1_extension_release__org___repo___tag_name__get
+      parameters:
+      - explode: false
+        in: path
+        name: org
+        required: true
+        schema:
+          title: Org
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: repo
+        required: true
+        schema:
+          title: Repo
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: tag_name
+        required: true
+        schema:
+          title: Tag Name
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Extension Release
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/extension/{ext_id}/db:
+    delete:
+      operationId: delete_extension_db_api_v1_extension__ext_id__db_delete
+      parameters:
+      - explode: false
+        in: path
+        name: ext_id
+        required: true
+        schema:
+          title: Ext Id
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: usr
+        required: true
+        schema:
+          format: uuid4
+          title: Usr
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Extension Db
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/tinyurl:
+    post:
+      description: creates a tinyurl
+      operationId: Tinyurl_api_v1_tinyurl_post
+      parameters:
+      - explode: true
+        in: query
+        name: url
+        required: true
+        schema:
+          title: Url
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: endless
+        required: false
+        schema:
+          default: false
+          title: Endless
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Tinyurl
+      tags:
+      - Core
+      x-accepts: application/json
+  /api/v1/tinyurl/{tinyurl_id}:
+    delete:
+      description: delete a tinyurl by id
+      operationId: Tinyurl_api_v1_tinyurl__tinyurl_id__delete
+      parameters:
+      - explode: false
+        in: path
+        name: tinyurl_id
+        required: true
+        schema:
+          title: Tinyurl Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Tinyurl
+      tags:
+      - Core
+      x-accepts: application/json
+    get:
+      description: get a tinyurl by id
+      operationId: Tinyurl_api_v1_tinyurl__tinyurl_id__get
+      parameters:
+      - explode: false
+        in: path
+        name: tinyurl_id
+        required: true
+        schema:
+          title: Tinyurl Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - APIKeyHeader: []
+      - APIKeyQuery: []
+      summary: Tinyurl
+      tags:
+      - Core
+      x-accepts: application/json
+  /t/{tinyurl_id}:
+    get:
+      description: redirects a tinyurl by id
+      operationId: Tinyurl_t__tinyurl_id__get
+      parameters:
+      - explode: false
+        in: path
+        name: tinyurl_id
+        required: true
+        schema:
+          title: Tinyurl Id
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Tinyurl
+      tags:
+      - Core
+      x-accepts: application/json
+  /public/v1/payment/{payment_hash}:
+    get:
+      operationId: api_public_payment_longpolling_public_v1_payment__payment_hash__get
+      parameters:
+      - explode: false
+        in: path
+        name: payment_hash
+        required: true
+        schema:
+          title: Payment Hash
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Api Public Payment Longpolling
+      tags:
+      - Core
+      x-accepts: application/json
+components:
+  schemas:
+    ConversionData:
+      example:
+        amount: 0.8008281904610115
+        from: sat
+        to: usd
+      properties:
+        from:
+          default: sat
+          title: From
+          type: string
+        amount:
+          title: Amount
+          type: number
+        to:
+          default: usd
+          title: To
+          type: string
+      required:
+      - amount
+      title: ConversionData
+      type: object
+    CreateExtension:
+      example:
+        ext_id: ext_id
+        source_repo: source_repo
+        archive: archive
+      properties:
+        ext_id:
+          title: Ext Id
+          type: string
+        archive:
+          title: Archive
+          type: string
+        source_repo:
+          title: Source Repo
+          type: string
+      required:
+      - archive
+      - ext_id
+      - source_repo
+      title: CreateExtension
+      type: object
+    CreateInvoiceData:
+      example:
+        amount: 0.08008281904610115
+        internal: false
+        webhook: webhook
+        description_hash: description_hash
+        memo: memo
+        unhashed_description: unhashed_description
+        lnurl_balance_check: lnurl_balance_check
+        out: true
+        unit: sat
+        lnurl_callback: lnurl_callback
+        extra: "{}"
+        expiry: 6
+        bolt11: bolt11
+      properties:
+        out:
+          default: true
+          title: Out
+          type: boolean
+        amount:
+          minimum: 0.0
+          title: Amount
+          type: number
+        memo:
+          title: Memo
+          type: string
+        unit:
+          default: sat
+          title: Unit
+          type: string
+        description_hash:
+          title: Description Hash
+          type: string
+        unhashed_description:
+          title: Unhashed Description
+          type: string
+        expiry:
+          title: Expiry
+          type: integer
+        lnurl_callback:
+          title: Lnurl Callback
+          type: string
+        lnurl_balance_check:
+          title: Lnurl Balance Check
+          type: string
+        extra:
+          title: Extra
+          type: object
+        webhook:
+          title: Webhook
+          type: string
+        internal:
+          default: false
+          title: Internal
+          type: boolean
+        bolt11:
+          title: Bolt11
+          type: string
+      title: CreateInvoiceData
+      type: object
+    CreateLNURLData:
+      example:
+        amount: 0
+        description_hash: description_hash
+        callback: callback
+        description: description
+        comment: comment
+      properties:
+        description_hash:
+          title: Description Hash
+          type: string
+        callback:
+          title: Callback
+          type: string
+        amount:
+          title: Amount
+          type: integer
+        comment:
+          title: Comment
+          type: string
+        description:
+          title: Description
+          type: string
+      required:
+      - amount
+      - callback
+      - description_hash
+      title: CreateLNURLData
+      type: object
+    CreateLnurlAuth:
+      example:
+        callback: callback
+      properties:
+        callback:
+          title: Callback
+          type: string
+      required:
+      - callback
+      title: CreateLnurlAuth
+      type: object
+    CreateTopup:
+      example:
+        wallet_id: wallet_id
+        amount: 0
+      properties:
+        wallet_id:
+          title: Wallet Id
+          type: string
+        amount:
+          title: Amount
+          type: integer
+      required:
+      - amount
+      - wallet_id
+      title: CreateTopup
+      type: object
+    DecodePayment:
+      example:
+        data: data
+      properties:
+        data:
+          title: Data
+          type: string
+      required:
+      - data
+      title: DecodePayment
+      type: object
+    EditableSettings:
+      description: |-
+        Base class for settings, allowing values to be overridden by environment variables.
+
+        This is useful in production for secrets you do not wish to save in code, it plays nicely with docker(-compose),
+        Heroku and any 12 factor app design.
+      example:
+        lnbits_extensions_manifests:
+        - lnbits_extensions_manifests
+        - lnbits_extensions_manifests
+        lnbits_watchdog: false
+        lnbits_allowed_users:
+        - lnbits_allowed_users
+        - lnbits_allowed_users
+        lnbits_site_title: LNbits
+        opennode_key: opennode_key
+        opennode_admin_key: opennode_admin_key
+        lnbits_allowed_ips:
+        - lnbits_allowed_ips
+        - lnbits_allowed_ips
+        boltz_network: main
+        lnbits_killswitch_interval: 1
+        lnbits_ad_space: https://shop.lnbits.com/;/static/images/lnbits-shop-light.png;/static/images/lnbits-shop-dark.png
+        boltz_mempool_space_url: https://mempool.space
+        lnbits_blocked_ips:
+        - lnbits_blocked_ips
+        - lnbits_blocked_ips
+        lnbits_reserve_fee_percent: 7.061401241503109
+        lnd_rest_cert: lnd_rest_cert
+        spark_url: spark_url
+        cliche_endpoint: cliche_endpoint
+        lnbits_killswitch: false
+        lnbits_allowed_currencies:
+        - lnbits_allowed_currencies
+        - lnbits_allowed_currencies
+        lnbits_theme_options:
+        - lnbits_theme_options
+        - lnbits_theme_options
+        lnbits_baseurl: http://127.0.0.1:5000/
+        lnbits_site_description: lnbits_site_description
+        lnd_grpc_macaroon_encrypted: lnd_grpc_macaroon_encrypted
+        opennode_invoice_key: opennode_invoice_key
+        lnbits_site_tagline: free and open-source lightning wallet
+        lnbits_custom_logo: lnbits_custom_logo
+        lnd_rest_macaroon: lnd_rest_macaroon
+        lntips_api_endpoint: lntips_api_endpoint
+        fake_wallet_secret: ToTheMoon1
+        lnd_rest_endpoint: lnd_rest_endpoint
+        lntips_admin_key: lntips_admin_key
+        lnbits_admin_key: lnbits_admin_key
+        lnd_rest_macaroon_encrypted: lnd_rest_macaroon_encrypted
+        lnd_grpc_port: 6
+        lnbits_notifications: false
+        lnbits_denomination: sats
+        lnbits_watchdog_delta: 5
+        lnbits_endpoint: https://legend.lnbits.com
+        eclair_pass: eclair_pass
+        lnbits_admin_extensions:
+        - lnbits_admin_extensions
+        - lnbits_admin_extensions
+        lnbits_rate_limit_no: "200"
+        lnbits_rate_limit_unit: minute
+        lnpay_api_endpoint: lnpay_api_endpoint
+        lnd_rest_admin_macaroon: lnd_rest_admin_macaroon
+        lnbits_ad_space_title: Supported by
+        lnbits_admin_users:
+        - lnbits_admin_users
+        - lnbits_admin_users
+        lnbits_watchdog_interval: 5
+        lnbits_status_manifest: https://raw.githubusercontent.com/lnbits/lnbits-status/main/manifest.json
+        lnbits_key: lnbits_key
+        lnd_grpc_macaroon: lnd_grpc_macaroon
+        lnd_rest_invoice_macaroon: lnd_rest_invoice_macaroon
+        corelightning_rpc: corelightning_rpc
+        lnpay_api_key: lnpay_api_key
+        lnd_grpc_invoice_macaroon: lnd_grpc_invoice_macaroon
+        lightning_invoice_expiry: 0
+        lnd_cert: lnd_cert
+        lnbits_hide_api: false
+        lntips_invoice_key: lntips_invoice_key
+        lnd_grpc_cert: lnd_grpc_cert
+        lntips_api_key: lntips_api_key
+        lnd_admin_macaroon: lnd_admin_macaroon
+        lnbits_backend_wallet_class: VoidWallet
+        lnbits_invoice_key: lnbits_invoice_key
+        eclair_url: eclair_url
+        lnbits_reserve_fee_min: 2
+        lnbits_ad_space_enabled: false
+        spark_token: spark_token
+        clightning_rpc: clightning_rpc
+        opennode_api_endpoint: opennode_api_endpoint
+        lnd_grpc_admin_macaroon: lnd_grpc_admin_macaroon
+        lnd_invoice_macaroon: lnd_invoice_macaroon
+        lnbits_default_wallet_name: LNbits wallet
+        lnd_grpc_endpoint: lnd_grpc_endpoint
+        boltz_url: https://boltz.exchange/api
+        lnpay_admin_key: lnpay_admin_key
+        boltz_mempool_space_url_ws: wss://mempool.space
+        lnpay_wallet_key: lnpay_wallet_key
+        lnbits_service_fee: 9.301444243932576
+      properties:
+        lightning_invoice_expiry:
+          default: 600
+          title: Lightning Invoice Expiry
+          type: integer
+        boltz_network:
+          default: main
+          title: Boltz Network
+          type: string
+        boltz_url:
+          default: https://boltz.exchange/api
+          title: Boltz Url
+          type: string
+        boltz_mempool_space_url:
+          default: https://mempool.space
+          title: Boltz Mempool Space Url
+          type: string
+        boltz_mempool_space_url_ws:
+          default: wss://mempool.space
+          title: Boltz Mempool Space Url Ws
+          type: string
+        lntips_api_endpoint:
+          title: Lntips Api Endpoint
+          type: string
+        lntips_api_key:
+          title: Lntips Api Key
+          type: string
+        lntips_admin_key:
+          title: Lntips Admin Key
+          type: string
+        lntips_invoice_key:
+          title: Lntips Invoice Key
+          type: string
+        spark_url:
+          title: Spark Url
+          type: string
+        spark_token:
+          title: Spark Token
+          type: string
+        opennode_api_endpoint:
+          title: Opennode Api Endpoint
+          type: string
+        opennode_key:
+          title: Opennode Key
+          type: string
+        opennode_admin_key:
+          title: Opennode Admin Key
+          type: string
+        opennode_invoice_key:
+          title: Opennode Invoice Key
+          type: string
+        lnpay_api_endpoint:
+          title: Lnpay Api Endpoint
+          type: string
+        lnpay_api_key:
+          title: Lnpay Api Key
+          type: string
+        lnpay_wallet_key:
+          title: Lnpay Wallet Key
+          type: string
+        lnpay_admin_key:
+          title: Lnpay Admin Key
+          type: string
+        lnd_grpc_endpoint:
+          title: Lnd Grpc Endpoint
+          type: string
+        lnd_grpc_cert:
+          title: Lnd Grpc Cert
+          type: string
+        lnd_grpc_port:
+          title: Lnd Grpc Port
+          type: integer
+        lnd_grpc_admin_macaroon:
+          title: Lnd Grpc Admin Macaroon
+          type: string
+        lnd_grpc_invoice_macaroon:
+          title: Lnd Grpc Invoice Macaroon
+          type: string
+        lnd_grpc_macaroon:
+          title: Lnd Grpc Macaroon
+          type: string
+        lnd_grpc_macaroon_encrypted:
+          title: Lnd Grpc Macaroon Encrypted
+          type: string
+        lnd_rest_endpoint:
+          title: Lnd Rest Endpoint
+          type: string
+        lnd_rest_cert:
+          title: Lnd Rest Cert
+          type: string
+        lnd_rest_macaroon:
+          title: Lnd Rest Macaroon
+          type: string
+        lnd_rest_macaroon_encrypted:
+          title: Lnd Rest Macaroon Encrypted
+          type: string
+        lnd_cert:
+          title: Lnd Cert
+          type: string
+        lnd_admin_macaroon:
+          title: Lnd Admin Macaroon
+          type: string
+        lnd_invoice_macaroon:
+          title: Lnd Invoice Macaroon
+          type: string
+        lnd_rest_admin_macaroon:
+          title: Lnd Rest Admin Macaroon
+          type: string
+        lnd_rest_invoice_macaroon:
+          title: Lnd Rest Invoice Macaroon
+          type: string
+        eclair_url:
+          title: Eclair Url
+          type: string
+        eclair_pass:
+          title: Eclair Pass
+          type: string
+        corelightning_rpc:
+          title: Corelightning Rpc
+          type: string
+        clightning_rpc:
+          title: Clightning Rpc
+          type: string
+        cliche_endpoint:
+          title: Cliche Endpoint
+          type: string
+        lnbits_endpoint:
+          default: https://legend.lnbits.com
+          title: Lnbits Endpoint
+          type: string
+        lnbits_key:
+          title: Lnbits Key
+          type: string
+        lnbits_admin_key:
+          title: Lnbits Admin Key
+          type: string
+        lnbits_invoice_key:
+          title: Lnbits Invoice Key
+          type: string
+        fake_wallet_secret:
+          default: ToTheMoon1
+          title: Fake Wallet Secret
+          type: string
+        lnbits_backend_wallet_class:
+          default: VoidWallet
+          title: Lnbits Backend Wallet Class
+          type: string
+        lnbits_rate_limit_no:
+          default: "200"
+          title: Lnbits Rate Limit No
+          type: string
+        lnbits_rate_limit_unit:
+          default: minute
+          title: Lnbits Rate Limit Unit
+          type: string
+        lnbits_allowed_ips:
+          default: []
+          items:
+            type: string
+          title: Lnbits Allowed Ips
+          type: array
+        lnbits_blocked_ips:
+          default: []
+          items:
+            type: string
+          title: Lnbits Blocked Ips
+          type: array
+        lnbits_notifications:
+          default: false
+          title: Lnbits Notifications
+          type: boolean
+        lnbits_killswitch:
+          default: false
+          title: Lnbits Killswitch
+          type: boolean
+        lnbits_killswitch_interval:
+          default: 60
+          title: Lnbits Killswitch Interval
+          type: integer
+        lnbits_watchdog:
+          default: false
+          title: Lnbits Watchdog
+          type: boolean
+        lnbits_watchdog_interval:
+          default: 60
+          title: Lnbits Watchdog Interval
+          type: integer
+        lnbits_watchdog_delta:
+          default: 1000000
+          title: Lnbits Watchdog Delta
+          type: integer
+        lnbits_status_manifest:
+          default: https://raw.githubusercontent.com/lnbits/lnbits-status/main/manifest.json
+          title: Lnbits Status Manifest
+          type: string
+        lnbits_baseurl:
+          default: http://127.0.0.1:5000/
+          title: Lnbits Baseurl
+          type: string
+        lnbits_reserve_fee_min:
+          default: 2000
+          title: Lnbits Reserve Fee Min
+          type: integer
+        lnbits_reserve_fee_percent:
+          default: 1.0
+          title: Lnbits Reserve Fee Percent
+          type: number
+        lnbits_service_fee:
+          default: 0
+          title: Lnbits Service Fee
+          type: number
+        lnbits_hide_api:
+          default: false
+          title: Lnbits Hide Api
+          type: boolean
+        lnbits_denomination:
+          default: sats
+          title: Lnbits Denomination
+          type: string
+        lnbits_site_title:
+          default: LNbits
+          title: Lnbits Site Title
+          type: string
+        lnbits_site_tagline:
+          default: free and open-source lightning wallet
+          title: Lnbits Site Tagline
+          type: string
+        lnbits_site_description:
+          title: Lnbits Site Description
+          type: string
+        lnbits_default_wallet_name:
+          default: LNbits wallet
+          title: Lnbits Default Wallet Name
+          type: string
+        lnbits_theme_options:
+          default:
+          - classic
+          - freedom
+          - mint
+          - salvador
+          - monochrome
+          - autumn
+          - cyber
+          items:
+            type: string
+          title: Lnbits Theme Options
+          type: array
+        lnbits_custom_logo:
+          title: Lnbits Custom Logo
+          type: string
+        lnbits_ad_space_title:
+          default: Supported by
+          title: Lnbits Ad Space Title
+          type: string
+        lnbits_ad_space:
+          default: https://shop.lnbits.com/;/static/images/lnbits-shop-light.png;/static/images/lnbits-shop-dark.png
+          title: Lnbits Ad Space
+          type: string
+        lnbits_ad_space_enabled:
+          default: false
+          title: Lnbits Ad Space Enabled
+          type: boolean
+        lnbits_allowed_currencies:
+          default: []
+          items:
+            type: string
+          title: Lnbits Allowed Currencies
+          type: array
+        lnbits_admin_extensions:
+          default: []
+          items:
+            type: string
+          title: Lnbits Admin Extensions
+          type: array
+        lnbits_extensions_manifests:
+          default:
+          - https://raw.githubusercontent.com/lnbits/lnbits-extensions/main/extensions.json
+          items:
+            type: string
+          title: Lnbits Extensions Manifests
+          type: array
+        lnbits_admin_users:
+          default: []
+          items:
+            type: string
+          title: Lnbits Admin Users
+          type: array
+        lnbits_allowed_users:
+          default: []
+          items:
+            type: string
+          title: Lnbits Allowed Users
+          type: array
+      title: EditableSettings
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Page:
+      example:
+        total: 0
+        data:
+        - ""
+        - ""
+      properties:
+        data:
+          items: {}
+          title: Data
+          type: array
+        total:
+          title: Total
+          type: integer
+      required:
+      - data
+      - total
+      title: Page
+      type: object
+    Payment:
+      example:
+        checking_id: checking_id
+        amount: 0
+        webhook: webhook
+        preimage: preimage
+        pending: true
+        fee: 6
+        memo: memo
+        webhook_status: 5
+        wallet_id: wallet_id
+        extra: "{}"
+        time: 1
+        expiry: 5.962133916683182
+        bolt11: bolt11
+        payment_hash: payment_hash
+      properties:
+        checking_id:
+          title: Checking Id
+          type: string
+        pending:
+          title: Pending
+          type: boolean
+        amount:
+          title: Amount
+          type: integer
+        fee:
+          title: Fee
+          type: integer
+        memo:
+          title: Memo
+          type: string
+        time:
+          title: Time
+          type: integer
+        bolt11:
+          title: Bolt11
+          type: string
+        preimage:
+          title: Preimage
+          type: string
+        payment_hash:
+          title: Payment Hash
+          type: string
+        expiry:
+          title: Expiry
+          type: number
+        extra:
+          default: {}
+          title: Extra
+          type: object
+        wallet_id:
+          title: Wallet Id
+          type: string
+        webhook:
+          title: Webhook
+          type: string
+        webhook_status:
+          title: Webhook Status
+          type: integer
+      required:
+      - amount
+      - bolt11
+      - checking_id
+      - fee
+      - payment_hash
+      - pending
+      - preimage
+      - time
+      - wallet_id
+      title: Payment
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            $ref: '#/components/schemas/Location_inner'
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Location_inner:
+      anyOf:
+      - type: string
+      - type: integer
+  securitySchemes:
+    APIKeyHeader:
+      description: Admin or Invoice key for wallet API's
+      in: header
+      name: X-API-KEY
+      type: apiKey
+    APIKeyQuery:
+      description: Admin or Invoice key for wallet API's
+      in: query
+      name: api-key
+      type: apiKey
+
